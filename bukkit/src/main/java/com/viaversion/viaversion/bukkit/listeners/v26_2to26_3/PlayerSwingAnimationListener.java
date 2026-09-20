@@ -41,6 +41,8 @@ public class PlayerSwingAnimationListener extends ViaBukkitListener {
             return;
         }
 
+        if (!isOnPipe(player)) return;
+
         final ClickType click = event.getClick();
         if (click == ClickType.WINDOW_BORDER_LEFT || click == ClickType.WINDOW_BORDER_RIGHT
             || click == ClickType.DROP || click == ClickType.CONTROL_DROP) {
@@ -51,12 +53,16 @@ public class PlayerSwingAnimationListener extends ViaBukkitListener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerDropItem(final PlayerDropItemEvent event) {
         final Player player = event.getPlayer();
+        if (!isOnPipe(player)) return;
+
         player.swingMainHand();
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onBlockPlace(final BlockPlaceEvent event) {
         final Player player = event.getPlayer();
+        if (!isOnPipe(player)) return;
+
         if (event.getHand() == EquipmentSlot.HAND) {
             player.swingMainHand();
         } else if (event.getHand() == EquipmentSlot.OFF_HAND) {
